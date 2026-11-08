@@ -44,7 +44,16 @@ O erro L1 médio foi reduzido após a restauração, indicando que o modelo apre
 
 ## Executar no VS Code ou Jupyter
 
-Requisitos: Python 3.10 ou superior, acesso à internet para o primeiro download do dataset e, opcionalmente, GPU NVIDIA com CUDA.
+Requisitos: Python 3.10 ou superior, Git, acesso à internet para o primeiro download do dataset e, opcionalmente, GPU NVIDIA com CUDA. O projeto também pode ser executado somente em CPU, mas o treinamento será mais demorado.
+
+### Clonar o repositório
+
+```powershell
+git clone https://github.com/edsonsantana1/unet-image-denoising-pytorch.git
+cd unet-image-denoising-pytorch
+```
+
+### Criar o ambiente
 
 No PowerShell, dentro da pasta do projeto:
 
@@ -56,7 +65,22 @@ py -m venv .venv
 
 Abra `atividade_extra.ipynb`, selecione o kernel da pasta `.venv` e execute as células em ordem. O notebook baixa e extrai o dataset automaticamente quando necessário.
 
-O código utiliza CUDA quando disponível e permite execução em CPU. O tempo de treinamento varia conforme o hardware.
+O código utiliza CUDA quando disponível e permite execução em CPU. O tempo de treinamento varia conforme o hardware. Para abrir o notebook pelo terminal, use:
+
+```powershell
+.\.venv\Scripts\jupyter.exe notebook atividade_extra.ipynb
+```
+
+Para configurar CUDA, consulte o [seletor oficial de instalação do PyTorch](https://pytorch.org/get-started/locally/). A instalação das dependências deste projeto não garante, sozinha, uma versão do PyTorch com suporte a CUDA.
+
+### Solução de problemas
+
+- **`python` ou `py` não encontrado:** instale o Python e marque a opção de adicionar o Python ao PATH; depois abra um novo terminal.
+- **O PowerShell bloqueia a ativação do ambiente:** execute `Set-ExecutionPolicy -Scope Process Bypass` e tente novamente.
+- **Jupyter não aparece no VS Code:** instale as extensões Python e Jupyter, selecione o interpretador de `.venv` e reinicie o kernel.
+- **CUDA indisponível:** o notebook pode usar CPU. Para verificar o dispositivo selecionado, observe a saída da primeira célula.
+- **Falha no download do dataset:** confirme o acesso à internet e execute novamente a célula de download. O dataset é extraído na pasta `kaggle_forest_segmentation/`.
+- **Memória insuficiente:** mantenha `BATCH_SIZE = 1` e feche outros programas que estejam usando a GPU.
 
 ## Dataset
 
